@@ -1,5 +1,5 @@
 {
-  "name": "mongoose_skeleton",
+  "name": "Fitness-Tracker",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,11 +9,12 @@
     "watch": "nodemon server.js",
     "seed": "node seeders/seed.js"
   },
-  "author": "",
+  "author": "JK",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
-    "mongoose": "^5.3.16",
+    "mongod": "^2.0.0",
+    "mongoose": "^5.9.27",
     "morgan": "^1.9.1"
   }
 }
