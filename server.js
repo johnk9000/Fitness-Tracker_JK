@@ -51,7 +51,7 @@ app.get("/api/workouts/:id", ({ id }, res) => {
 app.put("/api/workouts", ({body}, res) => {
   console.log("PUT to /api/workouts" + JSON.stringify(req))  // DEL
     db.Exercise.create(body)
-    .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id, exer } }, {new: true}) })
+    .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, {new: true}) })
     .then( dbExercise => { res.json(dbExercise) })
     .catch( err => { res.json(err) })
 })
