@@ -28,7 +28,6 @@ app.get("/stats", (req, res) => {
 // API Routes ====================================================================================
 
 app.get("/api/workouts/range", (req, res) => {
-        //console.log("GET ∀ workouts for stats (URI: /api/workouts/range) " + JSON.stringify(req)) // DEL
     db.Workout.find({})
     .populate("exercises")
     .then(dbWorkout => { res.json(dbWorkout) })
@@ -36,40 +35,34 @@ app.get("/api/workouts/range", (req, res) => {
 })
 
 app.get("/api/workouts/", (req, res) => {
-  //console.log("GET ∀ workouts (URI: /api/workouts)" + JSON.stringify(req)) // DEL
     db.Workout.find({})
     .then(dbWorkout => { res.json(dbWorkout) })
+    .then(dbWorkout => { console.log(dbWorkout) })
     .catch( err => { res.json(err) })
 })
 
-app.get("/api/workouts/:id", (req, res) => {
-        console.log("/api/workouts: " + id + " | " + req) // DEL
-    db.Workout.find({ _id: objectId(req.params.id) })
+app.get("/api/workouts/:id", ({ id }, res) => {
+        console.log("GET /api/workouts: " + id) // DEL
+    db.Exercise.findById(id)
     .then( dbWorkout => { res.json(dbWorkout) })
     .catch( err => { res.json(err) })
 })
 
-// app.get("/api/exercise", (req, res) => {
-//         console.log("/api/workouts" + req)  // DEL
-//     db.Exercise.find({})
-//     .then( dbExercise => { res.json( dbExercise ) })
-//     .catch( err => { res.json(err) })
-// });
-// Add an exercise regiment to the Workouts Schema
-app.post("/api/workouts", (req, res) => {
-  console.log("POST to /api/workouts" + JSON.stringify(req))  // DEL
-    db.Exercise.create(req.body)
-    .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercise: _id } }, {new: true}) })
+app.put("/api/workouts", ({body}, res) => {
+  console.log("PUT to /api/workouts" + JSON.stringify(req))  // DEL
+    db.Exercise.create(body)
+    .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id, exer } }, {new: true}) })
     .then( dbExercise => { res.json(dbExercise) })
     .catch( err => { res.json(err) })
 })
 
-// app.get("/api/exercise/:id", (req, res) => {
-//         console.log("/api/exercises: " + id + " | " + req)  // DEL
-//     db.Exercise.find({ _id: objectId(req.params.id) })
-//     .then(dbExercise => { res.json(dbExercise) })
-//     .catch(err => { res.json(err) })
-// });
+app.post("/api/workouts", (req, res) => {
+  console.log("POST to /api/workouts" + JSON.stringify(req))  // DEL
+  db.Exercise.create(body)
+  .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, {new: true}) })
+  .then( dbExercise => { res.json(dbExercise) })
+  .catch( err => { res.json(err) })
+})
 
 // App Init ==========================================================
 app.listen(PORT, () => {
