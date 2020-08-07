@@ -29,27 +29,27 @@ app.get("/stats", (req, res) => {
 
 app.get("/api/workouts/range", (req, res) => {
     db.Workout.find({})
-    .populate("exercises")
+    //.populate("exercises")
     .then(dbWorkout => { res.json(dbWorkout) })
     .catch( err => { res.json(err) })
 })
 
 app.get("/api/workouts/", (req, res) => {
     db.Workout.find({})
+    //.populate("exercises")
     .then(dbWorkout => { res.json(dbWorkout) })
-    .then(dbWorkout => { console.log(dbWorkout) })
+    //.then(dbWorkout => { console.log(dbWorkout) })
     .catch( err => { res.json(err) })
 })
 
 app.get("/api/workouts/:id", ({ id }, res) => {
         console.log("GET /api/workouts: " + id) // DEL
-    db.Exercise.findById(id)
+    db.Workout.find({ _id: id })
     .then( dbWorkout => { res.json(dbWorkout) })
     .catch( err => { res.json(err) })
 })
 
 app.put("/api/workouts", ({body}, res) => {
-  console.log("PUT to /api/workouts" + JSON.stringify(req))  // DEL
     db.Exercise.create(body)
     .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, {new: true}) })
     .then( dbExercise => { res.json(dbExercise) })
@@ -57,7 +57,6 @@ app.put("/api/workouts", ({body}, res) => {
 })
 
 app.post("/api/workouts", (req, res) => {
-  console.log("POST to /api/workouts" + JSON.stringify(req))  // DEL
   db.Exercise.create(body)
   .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, {new: true}) })
   .then( dbExercise => { res.json(dbExercise) })
