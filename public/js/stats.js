@@ -2,6 +2,7 @@
 
 fetch("/api/workouts/range")
   .then(response => {
+      console.log( "fetch ∀ workouts (uri: /api/workouts/range) n/" + JSON.stringify(response)) // DEL
     return response.json();
   })
   .then(data => {

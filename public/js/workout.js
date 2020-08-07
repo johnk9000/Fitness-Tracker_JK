@@ -1,6 +1,6 @@
 async function initWorkout() {
   const lastWorkout = await API.getLastWorkout();
-  console.log("Last workout:", lastWorkout);
+    console.log("Last workout: ", lastWorkout); // DEL
   if (lastWorkout) {
     document
       .querySelector("a[href='/exercise?']")
@@ -33,7 +33,7 @@ function tallyExercises(exercises) {
   return tallied;
 }
 
-function formatDate(date) {
+function formatDate(date) { // Handy later
   const options = {
     weekday: "long",
     year: "numeric",
