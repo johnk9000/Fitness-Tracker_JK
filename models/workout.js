@@ -22,19 +22,19 @@ const WorkoutSchema = new Schema({
           },
           distance: {
               type: Number,
-              default: 0
+              //default: 0
           },
           weight: {
               type: Number,
-              default: 0
+              //default: 0
           },
           reps: {
               type: Number,
-              default: 0
+              //default: 0
           },
           sets: {
               type: Number,
-              default: 0
+              //default: 0
           }
         }
       ],

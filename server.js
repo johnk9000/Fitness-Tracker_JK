@@ -49,16 +49,16 @@ app.get("/api/workouts/:id", ({ id }, res) => {
     .catch( err => { res.json(err) })
 })
 
-app.put("/api/workouts", ({body}, res) => {
-    db.Exercise.create(body)
-    .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, {new: true}) })
+app.put("/api/workouts/:id", (req, res) => {
+    db.Workout.find({ _id: req.params.id})
+    //.then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercise: _id } }, {new: true}) })
     .then( dbExercise => { res.json(dbExercise) })
     .catch( err => { res.json(err) })
 })
 
-app.post("/api/workouts", (req, res) => {
-  db.Exercise.create(body)
-  .then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, {new: true}) })
+app.post("/api/workouts", ({body}, res) => {
+  db.Workout.create(body)
+  //.then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, {new: true}) })
   .then( dbExercise => { res.json(dbExercise) })
   .catch( err => { res.json(err) })
 })
