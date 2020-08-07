@@ -6,6 +6,7 @@ const app = express()
 const PORT = process.env.PORT || 8080
 
 var db = require("./models")
+const { Workout } = require("./models")
 app.use(express.static("public"))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -50,14 +51,16 @@ app.get("/api/workouts/:id", ({ id }, res) => {
 })
 
 app.put("/api/workouts/:id", (req, res) => {
-    db.Workout.find({ _id: req.params.id})
-    //.then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercise: _id } }, {new: true}) })
+  const id = req.params.productId;
+    db.Workout.update({ _id: id}, { $push: req.body }, {new: true})
     .then( dbExercise => { res.json(dbExercise) })
     .catch( err => { res.json(err) })
 })
 
 app.post("/api/workouts", ({body}, res) => {
-  db.Workout.create(body)
+  var exercise = new Workout(body)
+  exercise.getDuration()
+  db.Workout.create(exercise)
   //.then(({ _id }) => { db.Workout.findOneAndUpdate({}, { $push: { exercises: _id } }, {new: true}) })
   .then( dbExercise => { res.json(dbExercise) })
   .catch( err => { res.json(err) })

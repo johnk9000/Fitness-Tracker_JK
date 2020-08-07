@@ -11,7 +11,9 @@ const WorkoutSchema = new Schema({
     exercises: 
         [
           {
-            _id: Schema.Types.ObjectId,
+            _id: 
+            { type: Schema.Types.ObjectId,
+              rel: "Workout"},
             name: {
               type: String,
               required: true
